@@ -3,8 +3,12 @@ package trademodel
 import "time"
 
 const (
-	ActionBuy  = 1
-	ActionSell = 2
+	ActionBuy = iota
+	ActionSell
+	ActionOpenLong
+	ActionCloseLong
+	ActionOpenShort
+	ActionCloseShort
 )
 
 type Trade struct {
@@ -20,4 +24,15 @@ type TradeAction struct {
 	Action int
 	Amount float64
 	Price  float64
+}
+
+func (ta *TradeAction) IsBuy() bool {
+	switch ta.Action {
+	case ActionBuy, ActionOpenLong, ActionCloseShort:
+		return true
+	case ActionSell, ActionCloseLong, ActionOpenShort:
+		return false
+	default:
+	}
+	return false
 }
