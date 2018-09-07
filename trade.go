@@ -2,14 +2,35 @@ package trademodel
 
 import "time"
 
+type ActionType int
+
 const (
-	ActionBuy = iota
+	ActionBuy ActionType = iota
 	ActionSell
 	ActionOpenLong
 	ActionCloseLong
 	ActionOpenShort
 	ActionCloseShort
 )
+
+func (at ActionType) String() (msg string) {
+	switch at {
+	case ActionBuy:
+		msg = "buy"
+	case ActionSell:
+		msg = "sell"
+	case ActionOpenLong:
+		msg = "openLong"
+	case ActionCloseLong:
+		msg = "closeLong"
+	case ActionOpenShort:
+		msg = "openShort"
+	case ActionCloseShort:
+		msg = "closeShort"
+	default:
+	}
+	return
+}
 
 type Trade struct {
 	ID     string
@@ -21,7 +42,7 @@ type Trade struct {
 }
 
 type TradeAction struct {
-	Action int
+	Action ActionType
 	Amount float64
 	Price  float64
 }
