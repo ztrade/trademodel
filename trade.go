@@ -45,6 +45,7 @@ type TradeAction struct {
 	Action ActionType
 	Amount float64
 	Price  float64
+	Time   time.Time
 }
 
 func (ta *TradeAction) IsBuy() bool {
