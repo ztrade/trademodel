@@ -2,38 +2,50 @@ package trademodel
 
 import "time"
 
-type ActionType int
+type TradeType int
 
 const (
-	ActionBuy ActionType = iota
-	ActionSell
-	ActionOpenLong
-	ActionCloseLong
-	ActionOpenShort
-	ActionCloseShort
+	DirectLong  TradeType = 1
+	DirectShort TradeType = 1 << 1
+
+	Limit  TradeType = 1 << 3
+	Market TradeType = 1 << 4
+	Stop   TradeType = 1 << 5
+
+	Open  TradeType = 1 << 6
+	Close TradeType = 1 << 7
+
+	OpenLong   = Open | DirectLong
+	OpenShort  = Open | DirectShort
+	CloseLong  = Close | DirectLong
+	CloseShort = Close | DirectShort
 )
 
-func (at ActionType) String() (msg string) {
-	switch at {
-	case ActionBuy:
-		msg = "buy"
-	case ActionSell:
-		msg = "sell"
-	case ActionOpenLong:
-		msg = "openLong"
-	case ActionCloseLong:
-		msg = "closeLong"
-	case ActionOpenShort:
-		msg = "openShort"
-	case ActionCloseShort:
-		msg = "closeShort"
-	default:
+func (t TradeType) String() (ret string) {
+	if t&Limit == Limit {
+		ret += "Limit"
+	} else if t&Market == Market {
+		ret += "Market"
+	} else if t&Stop == Stop {
+		ret += "Stop"
+	}
+	if t&Open == Open {
+		ret += "Open"
+	} else if t&Close == Close {
+		ret += "Close"
+	}
+
+	if t&DirectLong == DirectLong {
+		ret += "Long"
+	} else if t&DirectShort == DirectShort {
+		ret += "Short"
 	}
 	return
 }
 
 type Trade struct {
 	ID     string
+	Action TradeType
 	Time   time.Time
 	Price  float64
 	Amount float64
@@ -41,20 +53,24 @@ type Trade struct {
 	Remark string
 }
 
+// TradeAction trade action
 type TradeAction struct {
-	Action ActionType
+	Action TradeType
 	Amount float64
 	Price  float64
 	Time   time.Time
 }
 
-func (ta *TradeAction) IsBuy() bool {
-	switch ta.Action {
-	case ActionBuy, ActionOpenLong, ActionCloseShort:
+func (a TradeType) IsLong() bool {
+	if a&DirectLong == DirectLong {
 		return true
-	case ActionSell, ActionCloseLong, ActionOpenShort:
-		return false
-	default:
+	}
+	return false
+}
+
+func (a TradeType) IsOpen() bool {
+	if a&Open == Open {
+		return true
 	}
 	return false
 }
