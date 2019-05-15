@@ -19,6 +19,8 @@ const (
 	OpenShort  = Open | DirectShort
 	CloseLong  = Close | DirectLong
 	CloseShort = Close | DirectShort
+	StopLong   = Stop | DirectLong
+	StopShort  = Stop | DirectShort
 )
 
 func (t TradeType) String() (ret string) {
@@ -62,7 +64,7 @@ type TradeAction struct {
 }
 
 func (a TradeType) IsLong() bool {
-	if a&DirectLong == DirectLong {
+	if a&OpenLong == OpenLong || a&CloseShort == CloseShort || a&StopShort == StopShort {
 		return true
 	}
 	return false
@@ -70,6 +72,13 @@ func (a TradeType) IsLong() bool {
 
 func (a TradeType) IsOpen() bool {
 	if a&Open == Open {
+		return true
+	}
+	return false
+}
+
+func (a TradeType) IsStop() bool {
+	if a&Stop == Stop {
 		return true
 	}
 	return false
