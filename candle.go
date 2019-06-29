@@ -22,6 +22,18 @@ func (c Candle) TableName() string {
 	return c.Table
 }
 
+func (c Candle) GetTable() string {
+	return c.Table
+}
+
+func (c Candle) GetStart() int64 {
+	return c.Start
+}
+
+func (c *Candle) SetTable(tbl string) {
+	c.Table = tbl
+}
+
 func (c Candle) Time() time.Time {
 	return time.Unix(c.Start, 0)
 }
