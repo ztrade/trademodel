@@ -41,3 +41,47 @@ func (c Candle) Time() time.Time {
 func (c Candle) String() string {
 	return fmt.Sprintf("%s open:%f close:%f low:%f high:%f volume:%f vwp:%f trades:%d", c.Time().String(), c.Open, c.Close, c.Low, c.High, c.Volume, c.VWP, c.Trades)
 }
+
+// CandleList candle list
+type CandleList []*Candle
+
+// Merge merge multi candle to one
+func (l CandleList) Merge() (ret *Candle) {
+	if len(l) == 0 {
+		return
+	}
+	ret = new(Candle)
+	ret.Start = l[0].Start
+	ret.Open = l[0].Open
+	ret.High = l.High()
+	ret.Low = l.Low()
+	ret.Close = l[len(l)-1].Close
+	for _, v := range l {
+		ret.VWP += v.VWP
+		ret.Volume += v.Volume
+		ret.Trades += v.Trades
+	}
+	return
+}
+
+func (l CandleList) High() (ret float64) {
+	for _, v := range l {
+		if ret < v.High {
+			ret = v.High
+		}
+	}
+	return
+}
+
+func (l CandleList) Low() (ret float64) {
+	for _, v := range l {
+		if ret == 0 {
+			ret = v.Low
+			continue
+		}
+		if ret > v.Low {
+			ret = v.Low
+		}
+	}
+	return
+}
