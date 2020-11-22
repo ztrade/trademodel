@@ -2,6 +2,11 @@ package trademodel
 
 import "time"
 
+var (
+	OrderStatusFilled   = "Filled"
+	OrderStatusCanceled = "Canceled"
+)
+
 type Order struct {
 	OrderID  string
 	Symbol   string
