@@ -3,8 +3,8 @@ package trademodel
 import "time"
 
 var (
-	OrderStatusFilled   = "Filled"
-	OrderStatusCanceled = "Canceled"
+	OrderStatusFilled   = "FILLED"
+	OrderStatusCanceled = "CANCELED"
 )
 
 type Order struct {
