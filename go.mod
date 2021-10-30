@@ -1,3 +1,3 @@
-module github.com/SuperGod/trademodel
+module github.com/ztrade/trademodel
 
-go 1.12
+go 1.17

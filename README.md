@@ -1,2 +1,2 @@
 # trademodel
-Common trade structs used by [coinex](https://github.com/SuperGod/coinex)
+Common trade model used by [ztrade](https://github.com/ztrade/ztrade)
