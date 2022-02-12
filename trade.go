@@ -5,6 +5,7 @@ import "time"
 type TradeType int
 
 const (
+	CancelAll   TradeType = -1
 	DirectLong  TradeType = 1
 	DirectShort TradeType = 1 << 1
 
