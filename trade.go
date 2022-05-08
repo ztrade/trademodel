@@ -5,6 +5,7 @@ import "time"
 type TradeType int
 
 const (
+	CancelOne   TradeType = -2
 	CancelAll   TradeType = -1
 	DirectLong  TradeType = 1
 	DirectShort TradeType = 1 << 1
@@ -58,6 +59,7 @@ type Trade struct {
 
 // TradeAction trade action
 type TradeAction struct {
+	ID     string
 	Action TradeType
 	Amount float64
 	Price  float64

@@ -16,4 +16,5 @@ type Order struct {
 	Status   string
 	Side     string
 	Time     time.Time
+	Remark   string
 }
