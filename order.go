@@ -17,4 +17,5 @@ type Order struct {
 	Side     string
 	Time     time.Time
 	Remark   string
+	Filled   float64
 }

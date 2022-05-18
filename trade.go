@@ -1,6 +1,9 @@
 package trademodel
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 type TradeType int
 
@@ -47,6 +50,26 @@ func (t TradeType) String() (ret string) {
 	return
 }
 
+func NewTradeType(typ string) (t TradeType, err error) {
+	switch typ {
+	case "OpenLong":
+		t = OpenLong
+	case "OpenShort":
+		t = OpenShort
+	case "CloseLong":
+		t = CloseLong
+	case "CloseShort":
+		t = CloseShort
+	case "StopLong":
+		t = StopLong
+	case "StopShort":
+		t = StopShort
+	default:
+		err = fmt.Errorf("unsupport trade type: %d", t)
+	}
+	return
+}
+
 type Trade struct {
 	ID     string
 	Action TradeType
@@ -64,6 +87,7 @@ type TradeAction struct {
 	Amount float64
 	Price  float64
 	Time   time.Time
+	Symbol string
 }
 
 func (a TradeType) IsLong() bool {
