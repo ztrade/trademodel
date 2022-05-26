@@ -6,16 +6,16 @@ import (
 )
 
 type Candle struct {
-	ID     int64   `xorm:"pk autoincr null 'id'"`
-	Start  int64   `xorm:"unique index 'start'"`
-	Open   float64 `xorm:"notnull 'open'"`
-	High   float64 `xorm:"notnull 'high'"`
-	Low    float64 `xorm:"notnull 'low'"`
-	Close  float64 `xorm:"notnull 'close'"`
-	VWP    float64 `xorm:"notnull 'vwp'"`
-	Volume float64 `xorm:"notnull 'volume'"`
-	Trades int64   `xorm:"notnull 'trades'"`
-	Table  string  `xorm:"-"`
+	ID       int64   `xorm:"pk autoincr null 'id'"`
+	Start    int64   `xorm:"unique index 'start'"`
+	Open     float64 `xorm:"notnull 'open'"`
+	High     float64 `xorm:"notnull 'high'"`
+	Low      float64 `xorm:"notnull 'low'"`
+	Close    float64 `xorm:"notnull 'close'"`
+	Volume   float64 `xorm:"notnull 'volume'"`
+	Turnover float64 `xorm:"turnover 'turnover'"`
+	Trades   int64   `xorm:"notnull 'trades'"`
+	Table    string  `xorm:"-"`
 }
 
 func (c Candle) TableName() string {
@@ -39,7 +39,7 @@ func (c Candle) Time() time.Time {
 }
 
 func (c Candle) String() string {
-	return fmt.Sprintf("%s open:%f close:%f low:%f high:%f volume:%f vwp:%f trades:%d", c.Time().String(), c.Open, c.Close, c.Low, c.High, c.Volume, c.VWP, c.Trades)
+	return fmt.Sprintf("%s open:%f close:%f low:%f high:%f volume:%f trades:%d turnover: %f", c.Time().String(), c.Open, c.Close, c.Low, c.High, c.Volume, c.Trades, c.Turnover)
 }
 
 // CandleList candle list
@@ -57,7 +57,7 @@ func (l CandleList) Merge() (ret *Candle) {
 	ret.Low = l.Low()
 	ret.Close = l[len(l)-1].Close
 	for _, v := range l {
-		ret.VWP += v.VWP
+		ret.Turnover = v.Turnover
 		ret.Volume += v.Volume
 		ret.Trades += v.Trades
 	}
