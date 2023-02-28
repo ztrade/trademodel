@@ -23,9 +23,9 @@ const (
 	OpenLong   = Open | DirectLong
 	OpenShort  = Open | DirectShort
 	CloseLong  = Close | DirectLong
-	CloseShort = Close | DirectShort
-	StopLong   = Stop | DirectLong
-	StopShort  = Stop | DirectShort
+	CloseShort = Close | DirectShort // 130
+	StopLong   = Stop | DirectLong   // 33
+	StopShort  = Stop | DirectShort  // 34
 )
 
 func (t TradeType) String() (ret string) {
