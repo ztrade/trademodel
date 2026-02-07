@@ -57,7 +57,7 @@ func (l CandleList) Merge() (ret *Candle) {
 	ret.Low = l.Low()
 	ret.Close = l[len(l)-1].Close
 	for _, v := range l {
-		ret.Turnover = v.Turnover
+		ret.Turnover += v.Turnover
 		ret.Volume += v.Volume
 		ret.Trades += v.Trades
 	}

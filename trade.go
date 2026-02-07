@@ -29,6 +29,12 @@ const (
 )
 
 func (t TradeType) String() (ret string) {
+	if t == CancelAll {
+		return "CancelAll"
+	}
+	if t == CancelOne {
+		return "CancelOne"
+	}
 	if t&Limit == Limit {
 		ret += "Limit"
 	} else if t&Market == Market {
@@ -65,7 +71,7 @@ func NewTradeType(typ string) (t TradeType, err error) {
 	case "StopShort":
 		t = StopShort
 	default:
-		err = fmt.Errorf("unsupport trade type: %d", t)
+		err = fmt.Errorf("unsupported trade type: %s", typ)
 	}
 	return
 }

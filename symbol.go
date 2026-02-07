@@ -33,7 +33,7 @@ type Symbol struct {
 	// mini size between two price
 	PriceStep float64 `json:"price_step"`
 	// mini size between two amount
-	AmountStep float64 `json:"amount"`
+	AmountStep float64 `json:"amount_step"`
 }
 
 func (s *Symbol) GetResolutions() []string {
