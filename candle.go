@@ -6,7 +6,7 @@ import (
 )
 
 type Candle struct {
-	ID       int64   `xorm:"pk autoincr null 'id'"`
+	ID       int64   `xorm:"pk autoincr 'id'"`
 	Start    int64   `xorm:"unique index 'start'"`
 	Open     float64 `xorm:"notnull 'open'"`
 	High     float64 `xorm:"notnull 'high'"`
